@@ -2,14 +2,20 @@
 
 Bengali-led marketing flyers for Badal Tutorial. 8.5×9.4in print spec.
 
-## Files
+## Layout
 
-- `regents-bn.png` / `regents-bn.html` — Regents prep ($250 / whole summer promo)
-- `shsat-bn.png` / `shsat-bn.html` — SHSAT Brooklyn Tech/Stuyvesant/BHSEC ($250 / whole summer promo)
-- `esl-bn.png` / `esl-bn.html` — ESL bridge program ($250 / whole summer promo)
-- `shsat-uz.png` / `shsat-uz.html` — SHSAT, Uzbek (Latin)
-- `shsat-ur.png` / `shsat-ur.html` — SHSAT, Urdu (RTL, Noto Nastaliq)
-- `shsat-zh.png` / `shsat-zh.html` — SHSAT, Simplified Chinese
+Files grouped by language folder:
+
+- `flyers/bn/` — Bengali (canonical, 3 programs)
+  - `regents-bn.html/.png` — Regents prep
+  - `shsat-bn.html/.png` — SHSAT Brooklyn Tech/Stuyvesant
+  - `esl-bn.html/.png` — ESL bridge program
+- `flyers/uz/` — Uzbek (Latin)
+  - `shsat-uz.html/.png`
+- `flyers/ur/` — Urdu (RTL, Nastaliq)
+  - `shsat-ur.html/.png`
+- `flyers/zh/` — Simplified Chinese
+  - `shsat-zh.html/.png`
 
 ## Render
 
