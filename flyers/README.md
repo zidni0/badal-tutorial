@@ -11,9 +11,9 @@ Bengali-led marketing flyers for Badal Tutorial. 8.5×9.4in print spec.
 ## Render
 
 ```bash
-wkhtmltoimage --width 816 --height 902 --quality 85 \
+wkhtmltoimage --width 816 --height 984 --quality 85 \
   --enable-local-file-access --javascript-delay 500 \
-  --no-stop-slow-scripts file://./regents-bn.html ./regents-bn.png
+  --no-stop-slow-scripts file://./regents-bn.html ./regents-bn.png   # H=951 for SHSAT, H=943 for ESL
 ```
 
 ## Stack
