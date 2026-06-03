@@ -13,7 +13,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'BodySans', 'Noto Sans Bengali', 'BnFont', 'DejaVu Sans', sans-serif; }
 
-  .flyer { width: 8.5in; min-height: 9.4in; background: #FAF7F0; position: relative; overflow: hidden; }
+  .flyer { width: 8.5in; min-height: 9.4in; background: #FAF7F0; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .spacer { flex: 1; background: #FAF7F0; }
   .hero { background: #1B3A5C; color: #FAF7F0; padding: 22px 50px 24px; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 70%); }
   .badge { display: inline-block; background: #D4A017; color: #1B3A5C; padding: 4px 14px; border-radius: 18px; font-size: 11pt; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; font-family: 'BodySans', sans-serif; }
@@ -225,6 +226,8 @@
       <div class="qr-label">স্ক্যান করুন<br>Scan for WhatsApp</div>
     </div>
   </div>
+
+  <div class="spacer"></div>
 
   <div class="footer">
     <div class="footer-bn">কেনসিংটনের স্থানীয় টিউটোরিয়াল সেন্টার</div>
