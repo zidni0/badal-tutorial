@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@font-face { font-family: 'BodySans'; src: local('Noto Sans'), local('DejaVu Sans'); font-weight: 400; }
+@font-face { font-family: 'BodySans'; src: local('Noto Sans'), local('DejaVu Sans'); font-weight: 700; }
+@font-face { font-family: 'BodySans'; src: local('Noto Sans'), local('DejaVu Sans'); font-weight: 900; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'BodySans', 'Noto Sans', 'DejaVu Sans', sans-serif; background: #FAF7F0; }
+
+  .flyer { width: 8.5in; min-height: 9.4in; background: #FAF7F0; position: relative; overflow: hidden; }
+  .hero { background: #1B3A5C; color: #FAF7F0; padding: 22px 50px 24px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 70%); }
+
+  .urgent-badge { position: absolute; top: 55px; right: 30px; width: 130px; height: 130px; background: #C8341B; color: #FAF7F0; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: 'BodySans', sans-serif; font-weight: 900; line-height: 1.1; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 3px solid #FAF7F0; z-index: 10; transform: rotate(-8deg); }
+  .urgent-badge .urgent-top { font-size: 11pt; letter-spacing: 1px; }
+  .urgent-badge .urgent-mid { font-size: 18pt; color: #D4A017; margin: 1px 0; }
+  .urgent-badge .urgent-bot { font-size: 8pt; font-weight: 700; }
+
+  .badge { display: inline-block; background: #D4A017; color: #1B3A5C; padding: 4px 14px; border-radius: 18px; font-size: 11pt; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; font-family: 'BodySans', sans-serif; }
+  .badge-uz { display: inline-block; background: #0F7B5C; color: #FAF7F0; padding: 4px 14px; border-radius: 18px; font-size: 13pt; font-weight: 700; margin-left: 8px; font-family: 'BodySans', sans-serif; }
+  .headline-uz { font-family: 'BodySans', 'Noto Sans', sans-serif; font-size: 28pt; font-weight: 900; line-height: 1.05; color: #FAF7F0; margin-bottom: 6px; }
+  .headline-uz .accent { color: #D4A017; }
+  .headline-en { font-family: 'BodySans', sans-serif; font-size: 14pt; font-weight: 900; line-height: 1.1; color: #D4A017; margin-bottom: 4px; }
+
+  .illustration { background: #FAF7F0; padding: 10px 50px 8px; display: flex; justify-content: space-around; align-items: center; gap: 16px; border-bottom: 2px dashed #D4A017; }
+  .illust-item { text-align: center; }
+  .illust-circle { width: 58px; height: 58px; border-radius: 50%; background: #1B3A5C; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; border: 2px solid #D4A017; }
+  .illust-circle svg { width: 30px; height: 30px; }
+  .illust-label { font-family: 'BodySans', sans-serif; font-size: 9.5pt; font-weight: 700; color: #1B3A5C; }
+  .illust-label-en { font-family: 'BodySans', sans-serif; font-size: 7.5pt; color: #1B3A5C; }
+
+  .body-uz { padding: 10px 50px 8px; background: #FAF7F0; display: flex; gap: 22px; align-items: flex-start; }
+  .body-left { flex: 1.2; }
+  .hours-card { flex: 0.8; background: #FFF8E1; border: 2px solid #D4A017; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .hours-title { font-family: 'BodySans', sans-serif; font-size: 14pt; font-weight: 700; color: #1B3A5C; margin-bottom: 3px; }
+  .hours-title-en { font-family: 'BodySans', sans-serif; font-size: 9pt; font-weight: 700; color: #0F7B5C; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .hours-row { font-family: 'BodySans', sans-serif; font-size: 10pt; color: #1B3A5C; line-height: 1.5; font-weight: 700; }
+  .hours-divider { width: 60%; height: 1.5px; background: #D4A017; margin: 6px auto; }
+  .body-title { font-family: 'BodySans', sans-serif; font-size: 15pt; font-weight: 700; color: #1B3A5C; margin-bottom: 1px; }
+  .body-title-en { font-family: 'BodySans', sans-serif; font-size: 10pt; font-weight: 700; color: #0F7B5C; margin-bottom: 5px; }
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 22px; }
+  .body-row { display: flex; align-items: flex-start; gap: 8px; }
+  .check { color: #0F7B5C; font-size: 14pt; font-weight: 900; flex-shrink: 0; line-height: 1.2; }
+  .body-text-uz { font-family: 'BodySans', sans-serif; font-size: 11pt; font-weight: 700; color: #1B3A5C; line-height: 1.2; }
+  .body-text-en { font-family: 'BodySans', sans-serif; font-size: 9pt; color: #555; line-height: 1.2; margin-top: 0; }
+
+  .price-pill { background: #D4A017; color: #1B3A5C; padding: 6px 50px; text-align: center; }
+  .price-uz { font-family: 'BodySans', sans-serif; font-size: 15pt; font-weight: 700; margin-bottom: 1px; }
+  .price-en { font-family: 'BodySans', sans-serif; font-size: 12pt; font-weight: 700; }
+
+  .trust { background: #0F7B5C; color: #FAF7F0; padding: 5px 50px; text-align: center; }
+  .trust-uz { font-family: 'BodySans', sans-serif; font-size: 12pt; font-weight: 700; margin-bottom: 1px; }
+  .trust-en { font-family: 'BodySans', sans-serif; font-size: 9pt; font-weight: 700; letter-spacing: 0.5px; }
+
+  .cta { background: #1B3A5C; color: #FAF7F0; padding: 10px 50px; display: flex; align-items: center; gap: 20px; }
+  .cta-left { flex: 1; }
+  .cta-headline { font-family: 'BodySans', sans-serif; font-size: 14pt; font-weight: 700; color: #D4A017; margin-bottom: 1px; }
+  .cta-sub { font-family: 'BodySans', sans-serif; font-size: 10pt; font-weight: 700; color: #FAF7F0; margin-bottom: 4px; }
+  .phone-block { display: inline-block; background: #D4A017; color: #1B3A5C; padding: 5px 20px; border-radius: 32px; font-family: 'BodySans', sans-serif; font-size: 16pt; font-weight: 900; letter-spacing: 2px; margin-bottom: 3px; }
+  .wa-line { font-family: 'BodySans', sans-serif; font-size: 9pt; color: #FAF7F0; }
+  .qr-box { position: relative; width: 140px; height: 140px; background: #FAF7F0; border: 3px solid #D4A017; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3px; flex-shrink: 0; }
+  .qr-box svg { width: 88px; height: 88px; }
+  .wa-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.4); z-index: 5; }
+  .wa-logo svg { width: 24px; height: 24px; fill: #FFFFFF; }
+
+  .qr-label { font-family: 'BodySans', sans-serif; font-size: 8pt; font-weight: 700; color: #1B3A5C; margin-top: 2px; line-height: 1.1; }
+
+  .footer { background: #0a2540; color: #FAF7F0; padding: 14px 50px 12px; text-align: center; }
+  .footer-uz { font-family: 'BodySans', sans-serif; font-size: 10pt; font-weight: 700; margin-bottom: 2px; }
+  .footer-en { font-family: 'BodySans', sans-serif; font-size: 9pt; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+  <div class="hero">
+    <div class="urgent-badge">
+      <div class="urgent-top">SHOSHILING!</div>
+      <div class="urgent-mid">10<br>o'rindiq</div>
+      <div class="urgent-bot">FAQAT 10<br>O'RINDIQ QOLDI</div>
+    </div>
+    <div>
+      <span class="badge">★ SHSAT YOZGI 2026 ★</span>
+      <span class="badge-uz">Yozgi</span>
+    </div>
+    <div class="headline-uz"><span class="accent">SHSAT</span><br>dan o'ting,<br>Brooklyn Tech va<br>Stuyvesant ga kiring.</div>
+    <div class="headline-en">SHSAT da muvaffaqiyat qozoning. Brooklyn Tech va Stuyvesant ga kirib boring.</div>
+  </div>
+
+  <div class="illustration">
+    <div class="illust-item">
+      <div class="illust-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2" fill="#D4A017"/>
+        </svg>
+      </div>
+      <div class="illust-label">Diagnostika</div>
+      <div class="illust-label-en">Diagnostic</div>
+    </div>
+    <div class="illust-item">
+      <div class="illust-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div class="illust-label">Ingliz tili + Matematika</div>
+      <div class="illust-label-en">ELA + Math</div>
+    </div>
+    <div class="illust-item">
+      <div class="illust-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="illust-label">Vaqtli mashqlar</div>
+      <div class="illust-label-en">Timed Drills</div>
+    </div>
+    <div class="illust-item">
+      <div class="illust-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+          <path d="M4 22h16"/>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+        </svg>
+      </div>
+      <div class="illust-label">Isbotlangan natijalar</div>
+      <div class="illust-label-en">Proven Results</div>
+    </div>
+  </div>
+
+  <div class="body-uz">
+    <div class="body-left">
+      <div class="body-title">Siz nimaga ega bo'lasiz</div>
+    <div class="body-title-en">What You Get</div>
+    <div class="body-grid">
+      <div class="body-row">
+        <span class="check">✓</span>
+        <div>
+          <div class="body-text-uz">Mutaxassis SHSAT repetitorlari</div>
+          <div class="body-text-en">Expert SHSAT tutors</div>
+        </div>
+      </div>
+      <div class="body-row">
+        <span class="check">✓</span>
+        <div>
+          <div class="body-text-uz">6 haftalik dastur</div>
+          <div class="body-text-en">6-week curriculum</div>
+        </div>
+      </div>
+      <div class="body-row">
+        <span class="check">✓</span>
+        <div>
+          <div class="body-text-uz">Bepul diagnostika</div>
+          <div class="body-text-en">Free diagnostic</div>
+        </div>
+      </div>
+      <div class="body-row">
+        <span class="check">✓</span>
+        <div>
+          <div class="body-text-uz">Ota-onalar uchun hisobotlar</div>
+          <div class="body-text-en">Parent progress reports</div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="hours-card">
+      <div class="hours-title">Yozgi ish vaqti</div>
+      <div class="hours-title-en">SUMMER HOURS</div>
+      <div class="hours-divider"></div>
+      <div class="hours-row">Mon–Fri: 2–8 PM</div>
+      <div class="hours-row">Sat / Sun: 8 AM–2 PM</div>
+      <div class="hours-row">+ 4–8 PM</div>
+    </div>
+  </div>
+
+  <div class="price-pill">
+    <div class="price-uz">Atigi $250 • Butun yoz</div>
+    <div class="price-en">$250 / Butun yozgi aksiya</div>
+  </div>
+
+  <div class="trust">
+    <div class="trust-uz">★ K-12 ★ 12+ o'qituvchi ★ 100+ o'quvchi ★ Kensington</div>
+    <div class="trust-en">K-12 • 12+ TEACHERS • 100+ STUDENTS • KENSINGTON</div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-left">
+      <div class="cta-headline">Bepul diagnostik baholash</div>
+      <div class="cta-sub">FREE Diagnostic Assessment</div>
+      <div class="phone-block">📞 (718) 355-0851</div>
+      <div class="wa-line">📱 WhatsApp: +1 (718) 355-0851</div>
+    </div>
+    <div class="qr-box">
+      <svg viewBox="0 0 100 100" fill="#1B3A5C">
+        <rect x="5" y="5" width="20" height="20"/>
+        <rect x="10" y="10" width="10" height="10" fill="#FAF7F0"/>
+        <rect x="75" y="5" width="20" height="20"/>
+        <rect x="80" y="10" width="10" height="10" fill="#FAF7F0"/>
+        <rect x="5" y="75" width="20" height="20"/>
+        <rect x="10" y="80" width="10" height="10" fill="#FAF7F0"/>
+        <rect x="30" y="5" width="5" height="5"/>
+        <rect x="40" y="10" width="5" height="5"/>
+        <rect x="55" y="5" width="5" height="5"/>
+        <rect x="65" y="10" width="5" height="5"/>
+        <rect x="30" y="15" width="5" height="5"/>
+        <rect x="50" y="15" width="5" height="5"/>
+        <rect x="35" y="25" width="5" height="5"/>
+        <rect x="45" y="25" width="5" height="5"/>
+        <rect x="60" y="25" width="5" height="5"/>
+        <rect x="30" y="35" width="5" height="5"/>
+        <rect x="40" y="30" width="5" height="5"/>
+        <rect x="50" y="35" width="5" height="5"/>
+        <rect x="65" y="35" width="5" height="5"/>
+        <rect x="5" y="30" width="5" height="5"/>
+        <rect x="15" y="35" width="5" height="5"/>
+        <rect x="5" y="45" width="5" height="5"/>
+        <rect x="20" y="45" width="5" height="5"/>
+        <rect x="5" y="55" width="5" height="5"/>
+        <rect x="15" y="60" width="5" height="5"/>
+        <rect x="30" y="45" width="5" height="5"/>
+        <rect x="40" y="50" width="5" height="5"/>
+        <rect x="50" y="45" width="5" height="5"/>
+        <rect x="60" y="55" width="5" height="5"/>
+        <rect x="70" y="45" width="5" height="5"/>
+        <rect x="80" y="50" width="5" height="5"/>
+        <rect x="90" y="55" width="5" height="5"/>
+        <rect x="35" y="60" width="5" height="5"/>
+        <rect x="45" y="65" width="5" height="5"/>
+        <rect x="55" y="60" width="5" height="5"/>
+        <rect x="65" y="70" width="5" height="5"/>
+        <rect x="75" y="65" width="5" height="5"/>
+        <rect x="85" y="70" width="5" height="5"/>
+        <rect x="30" y="75" width="5" height="5"/>
+        <rect x="40" y="80" width="5" height="5"/>
+        <rect x="50" y="75" width="5" height="5"/>
+        <rect x="60" y="85" width="5" height="5"/>
+        <rect x="70" y="80" width="5" height="5"/>
+        <rect x="80" y="90" width="5" height="5"/>
+        <rect x="35" y="90" width="5" height="5"/>
+        <rect x="55" y="90" width="5" height="5"/>
+        <rect x="85" y="40" width="5" height="5"/>
+        <rect x="20" y="65" width="5" height="5"/>
+        <rect x="75" y="50" width="5" height="5"/>
+      </svg>
+      <div class="wa-logo">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+<div class="qr-label">Skanerlang<br>Scan for WhatsApp</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-uz">Kensington ning mahalliy o'quv markazi</div>
+    <div class="footer-en">128 Cortelyou Rd, Brooklyn, NY 11218</div><div class="footer-en">badaltutorialservices.com • @badaltutorial</div>
+  </div>
+</div>
+
+</body>
+</html>
