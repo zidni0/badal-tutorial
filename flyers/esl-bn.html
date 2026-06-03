@@ -36,7 +36,12 @@
   .illust-label { font-family: 'BnFont', sans-serif; font-size: 9pt; font-weight: 700; color: #1B3A5C; }
   .illust-label-en { font-family: 'BodySans', sans-serif; font-size: 7pt; color: #1B3A5C; }
 
-  .body-bn { padding: 4px 50px 4px; background: #FAF7F0; }
+  .body-bn { padding: 4px 50px 4px; background: #FAF7F0; display: flex; gap: 22px; align-items: flex-start; }
+  .body-left { flex: 1.2; }
+  .hours-card { flex: 0.8; background: #FFF8E1; border: 2px solid #D4A017; border-radius: 8px; padding: 6px 10px; }
+  .hours-title { font-family: 'BnFont', sans-serif; font-size: 12pt; font-weight: 700; color: #1B3A5C; margin-bottom: 2px; }
+  .hours-title-en { font-family: 'BodySans', sans-serif; font-size: 8pt; font-weight: 700; color: #0F7B5C; margin-bottom: 4px; }
+  .hours-row { font-family: 'BodySans', sans-serif; font-size: 8pt; color: #1B3A5C; line-height: 1.35; font-weight: 700; }
   .body-title { font-family: 'BnFont', sans-serif; font-size: 15pt; font-weight: 700; color: #1B3A5C; margin-bottom: 1px; }
   .body-title-en { font-family: 'BodySans', sans-serif; font-size: 10pt; font-weight: 700; color: #0F7B5C; margin-bottom: 5px; }
   .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 22px; }
@@ -134,7 +139,8 @@
   </div>
 
   <div class="body-bn">
-    <div class="body-title">৩টি ইএসএল ট্র্যাক</div>
+    <div class="body-left">
+      <div class="body-title">৩টি ইএসএল ট্র্যাক</div>
     <div class="body-title-en">3 ESL Tracks</div>
     <div class="body-grid">
       <div class="body-row">
@@ -165,6 +171,14 @@
           <div class="body-text-en">Bilingual instruction</div>
         </div>
       </div>
+      </div>
+    </div>
+    <div class="hours-card">
+      <div class="hours-title">গ্রীষ্মকালীন সময়</div>
+      <div class="hours-title-en">Summer Hours</div>
+      <div class="hours-row">Mon–Fri: 2–8 PM</div>
+      <div class="hours-row">Sat / Sun: 8 AM–2 PM</div>
+      <div class="hours-row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4–8 PM</div>
     </div>
   </div>
 
@@ -248,7 +262,7 @@
 
   <div class="footer">
     <div class="footer-bn">কেনসিংটনের স্থানীয় টিউটোরিয়াল সেন্টার</div>
-    <div class="footer-en">badaltutorialservices.com • @badaltutorial • 11218 Brooklyn</div>
+    <div class="footer-en">128 Cortelyou Rd, Brooklyn, NY 11218</div><div class="footer-en">badaltutorialservices.com • @badaltutorial</div>
   </div>
 </div>
 

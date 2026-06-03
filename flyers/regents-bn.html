@@ -35,7 +35,13 @@
   .illust-label { font-family: 'BnFont', sans-serif; font-size: 9pt; font-weight: 700; color: #1B3A5C; }
   .illust-label-en { font-family: 'BodySans', sans-serif; font-size: 7pt; color: #1B3A5C; }
 
-  .body-bn { padding: 8px 50px 6px; background: #FAF7F0; }
+  .body-bn { padding: 8px 50px 6px; background: #FAF7F0; display: flex; gap: 22px; align-items: flex-start; }
+  .body-left { flex: 1.2; }
+  .hours-card { flex: 0.8; background: #FFF8E1; border: 2px solid #D4A017; border-radius: 8px; padding: 6px 10px; }
+  .hours-title { font-family: 'BnFont', sans-serif; font-size: 12pt; font-weight: 700; color: #1B3A5C; margin-bottom: 2px; }
+  .hours-title-en { font-family: 'BodySans', sans-serif; font-size: 8pt; font-weight: 700; color: #0F7B5C; margin-bottom: 4px; }
+  .hours-row { font-family: 'BodySans', sans-serif; font-size: 8pt; color: #1B3A5C; line-height: 1.35; font-weight: 700; }
+  .hours-row-bn { font-family: 'BnFont', sans-serif; font-weight: 700; color: #1B3A5C; }
   .body-title { font-family: 'BnFont', sans-serif; font-size: 15pt; font-weight: 700; color: #1B3A5C; margin-bottom: 1px; }
   .body-title-en { font-family: 'BodySans', sans-serif; font-size: 10pt; font-weight: 700; color: #0F7B5C; margin-bottom: 5px; }
   .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 22px; }
@@ -66,7 +72,8 @@
   .qr-label { font-family: 'BnFont', sans-serif; font-size: 7pt; font-weight: 700; color: #1B3A5C; margin-top: 2px; line-height: 1.1; }
 
   .footer { background: #0a2540; color: #FAF7F0; padding: 14px 50px 24px; text-align: center; }
-  .footer-bn { font-family: 'BnFont', sans-serif; font-size: 10pt; font-weight: 700; margin-bottom: 2px; }
+  .footer-bn { font-family: 'BnFont', sans-serif; font-size: 10pt; font-weight: 700; margin-bottom: 1px; }
+  .footer-en { font-family: 'BodySans', sans-serif; font-size: 9pt; font-weight: 700; line-height: 1.3; }
   .footer-en { font-family: 'BodySans', sans-serif; font-size: 9pt; font-weight: 700; }
 </style>
 </head>
@@ -136,9 +143,10 @@
   </div>
 
   <div class="body-bn">
-    <div class="body-title">আপনি যা পাবেন</div>
-    <div class="body-title-en">What You Get</div>
-    <div class="body-grid">
+    <div class="body-left">
+      <div class="body-title">আপনি যা পাবেন</div>
+      <div class="body-title-en">What You Get</div>
+      <div class="body-grid">
       <div class="body-row">
         <span class="check">✓</span>
         <div>
@@ -167,6 +175,16 @@
           <div class="body-text-en">Progress reports</div>
         </div>
       </div>
+      </div>
+    </div>
+    <div class="hours-card">
+      <div class="hours-title">গ্রীষ্মকালীন সময়</div>
+      <div class="hours-title-en">Summer Hours</div>
+      <div class="hours-row">Mon–Fri: 2–8 PM</div>
+      <div class="hours-row">Sat / Sun: 8 AM–2 PM</div>
+      <div class="hours-row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4–8 PM</div>
+      <div class="hours-row-bn" style="font-size:8pt; margin-top:3px;">সোম–শুক্র: বিকাল ২–৮</div>
+      <div class="hours-row-bn" style="font-size:8pt;">শনি/রবি: সকাল ৮–২ + বিকাল ৪–৮</div>
     </div>
   </div>
 
@@ -250,7 +268,7 @@
 
   <div class="footer">
     <div class="footer-bn">কেনসিংটনের স্থানীয় টিউটোরিয়াল সেন্টার</div>
-    <div class="footer-en">badaltutorialservices.com • @badaltutorial • 11218 Brooklyn</div>
+    <div class="footer-en">128 Cortelyou Rd, Brooklyn, NY 11218</div><div class="footer-en">badaltutorialservices.com • @badaltutorial</div>
   </div>
 </div>
 
