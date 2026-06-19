@@ -18,8 +18,11 @@
   .spacer { flex: 1; background: #FAF7F0; }
 
   /* HERO */
-  .hero { background: #1B3A5C; color: #FAF7F0; padding: 18px 50px 18px; position: relative; overflow: hidden; }
+  .hero { background: #1B3A5C; color: #FAF7F0; padding: 10px 50px 18px; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 70%); }
+
+  .flyer-logo { position: absolute; top: 10px; left: 50px; width: 70px; height: 70px; z-index: 5; }
+  .flyer-logo img { width: 100%; height: 100%; border-radius: 50%; display: block; }
 
   .urgent-badge { position: absolute; top: 50px; right: 28px; width: 130px; height: 130px; background: #C8341B; color: #FAF7F0; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: 'BodySans', sans-serif; font-weight: 900; line-height: 1.1; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 3px solid #FAF7F0; z-index: 10; transform: rotate(-8deg); }
   .urgent-badge .urgent-top { font-size: 10pt; letter-spacing: 1px; }
@@ -27,18 +30,18 @@
   .urgent-badge .urgent-bot { font-size: 8pt; font-weight: 700; }
 
   /* Three program badges - single inline row, no wrap */
-  .badges-row { display: flex; flex-wrap: nowrap; gap: 5px; margin-bottom: 8px; max-width: 64%; }
+  .badges-row { display: flex; flex-wrap: nowrap; gap: 5px; margin-top: 80px; margin-bottom: 4px; max-width: 64%; }
   .badge { display: inline-block; background: #D4A017; color: #1B3A5C; padding: 4px 9px; border-radius: 16px; font-size: 8.5pt; font-weight: 700; letter-spacing: 0.3px; font-family: 'BodySans', sans-serif; white-space: nowrap; }
 
-  .headline-bn { font-family: 'BnFont', 'Noto Sans Bengali', sans-serif; font-size: 32pt; font-weight: 700; line-height: 1.05; color: #FAF7F0; margin-bottom: 4px; max-width: 70%; }
+  .headline-bn { font-family: 'BnFont', 'Noto Sans Bengali', sans-serif; font-size: 32pt; font-weight: 700; line-height: 1.05; color: #FAF7F0; margin-bottom: 2px; max-width: 70%; }
   .headline-bn .accent { color: #D4A017; }
   .headline-en { font-family: 'BodySans', sans-serif; font-size: 14pt; font-weight: 900; line-height: 1.1; color: #D4A017; margin-bottom: 0; max-width: 70%; }
 
   /* ILLUSTRATION - 3 icons */
-  .illustration { background: #FAF7F0; padding: 8px 50px 6px; display: flex; justify-content: space-around; align-items: center; gap: 16px; border-bottom: 2px dashed #D4A017; }
+  .illustration { background: #FAF7F0; padding: 6px 50px 4px; display: flex; justify-content: space-around; align-items: center; gap: 16px; border-bottom: 2px dashed #D4A017; }
   .illust-item { text-align: center; }
-  .illust-circle { width: 64px; height: 64px; border-radius: 50%; background: #1B3A5C; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; border: 2px solid #D4A017; }
-  .illust-circle svg { width: 34px; height: 34px; }
+  .illust-circle { width: 60px; height: 60px; border-radius: 50%; background: #1B3A5C; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; border: 2px solid #D4A017; }
+  .illust-circle svg { width: 32px; height: 32px; }
   .illust-label { font-family: 'BnFont', sans-serif; font-size: 9pt; font-weight: 700; color: #1B3A5C; }
   .illust-label-en { font-family: 'BodySans', sans-serif; font-size: 7pt; color: #1B3A5C; }
 
@@ -69,7 +72,7 @@
   .hours-row-bn { font-family: 'BnFont', sans-serif; font-size: 9pt; color: #1B3A5C; font-weight: 700; }
 
   /* PRICE PILL with overlapping circle badge */
-  .price-pill { background: #D4A017; color: #1B3A5C; padding: 6px 50px; text-align: center; position: relative; }
+  .price-pill { background: #D4A017; color: #1B3A5C; padding: 4px 50px; text-align: center; position: relative; }
   .price-bn { font-family: 'BnFont', 'Noto Sans Bengali', sans-serif; font-size: 16pt; font-weight: 700; margin-bottom: 1px; }
   .price-en { font-family: 'BodySans', sans-serif; font-size: 11pt; font-weight: 700; }
   .price-circle { position: absolute; right: 36px; top: 50%; transform: translateY(-50%); width: 78px; height: 78px; background: #C8341B; color: #FAF7F0; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: 'BodySans', sans-serif; font-weight: 900; line-height: 1.05; box-shadow: 0 3px 8px rgba(0,0,0,0.35); border: 2.5px solid #FAF7F0; z-index: 5; }
@@ -78,12 +81,12 @@
   .price-circle .pc-bot { font-size: 7pt; }
 
   /* TRUST */
-  .trust { background: #0F7B5C; color: #FAF7F0; padding: 5px 50px; text-align: center; }
+  .trust { background: #0F7B5C; color: #FAF7F0; padding: 4px 50px; text-align: center; }
   .trust-bn { font-family: 'BnFont', sans-serif; font-size: 11pt; font-weight: 700; margin-bottom: 1px; }
   .trust-en { font-family: 'BodySans', sans-serif; font-size: 8.5pt; font-weight: 700; letter-spacing: 0.5px; }
 
   /* CTA */
-  .cta { background: #1B3A5C; color: #FAF7F0; padding: 18px 40px 22px; display: flex; align-items: center; gap: 20px; }
+  .cta { background: #1B3A5C; color: #FAF7F0; padding: 14px 40px 18px; display: flex; align-items: center; gap: 20px; }
   .cta-left { flex: 1; }
   .cta-mid { flex: 0.95; border-left: 1.5px solid rgba(250,247,240,0.3); border-right: 1.5px solid rgba(250,247,240,0.3); padding: 0 14px; text-align: center; }
   .cta-right { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -103,7 +106,7 @@
   .qr-label { font-family: 'BnFont', sans-serif; font-size: 7pt; font-weight: 700; color: #1B3A5C; margin-top: 2px; line-height: 1.05; }
 
   /* FOOTER */
-  .footer { background: #0a2540; color: #FAF7F0; padding: 14px 50px 16px; text-align: center; }
+  .footer { background: #0a2540; color: #FAF7F0; padding: 10px 50px 12px; text-align: center; }
   .footer-bn { font-family: 'BnFont', sans-serif; font-size: 10pt; font-weight: 700; margin-bottom: 2px; }
   .footer-en { font-family: 'BodySans', sans-serif; font-size: 8.5pt; font-weight: 700; line-height: 1.3; }
 </style>
@@ -114,6 +117,7 @@
 
   <!-- HERO -->
   <div class="hero">
+    <div class="flyer-logo"><img src="logo-badge.png" alt="Badal Tutorial logo"></div>
     <div class="urgent-badge">
       <div class="urgent-top">HURRY!</div>
       <div class="urgent-mid">অত্যন্ত<br>সীমিত</div>
