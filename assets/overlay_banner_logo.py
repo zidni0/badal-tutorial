@@ -6,10 +6,10 @@ import sys
 # Target bounding box for logo badge in the 816x1056 banner flyer PNGs
 # These are hand-tuned to cover the old circular "BT" logo.
 LOGO_BOX = {
-    "en": (147, 22, 277, 157),   # left, top, right, bottom (130x130 badge)
-    "bn": (147, 22, 277, 157),
+    "en": (187, 22, 287, 122),   # left, top, right, bottom (100x100 badge)
+    "bn": (187, 22, 287, 122),
 }
-ERASE_MARGIN = 3
+ERASE_MARGIN = 12
 BG_COLOR = "#1B3A5C"
 
 
