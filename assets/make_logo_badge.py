@@ -5,8 +5,8 @@ import math
 
 SRC = "/home/ihthos/Downloads/Logo Enhanced.jpg"
 SIZES = {
-    "large": (900, 72),   # banner: 900px canvas, 72% fill ratio (smaller crest inside circle)
-    "small": (180, 65),   # flyer: 180px canvas, 65% fill ratio
+    "large": (900, 58),   # banner: smaller crest so circular edge is inside cream area
+    "small": (180, 55),   # flyer: smaller crest inside circle
 }
 BORDER_COLOR = "#D4A017"
 BG_COLOR = "#FAF7F0"
