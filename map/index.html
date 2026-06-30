@@ -57,8 +57,8 @@
     const zones = [
       {
         name: "Little Bangladesh / Bengali-South Asian hub",
-        color: "#FFD700",
-        opacity: 0.28,
+        color: "#E63946",
+        opacity: 0.30,
         coords: [
           [40.6458, -73.9840], [40.6473, -73.9745], [40.6445, -73.9725],
           [40.6375, -73.9738], [40.6360, -73.9785], [40.6362, -73.9840],
@@ -67,8 +67,8 @@
       },
       {
         name: "Uzbek / South Asian family corridor",
-        color: "#FFA500",
-        opacity: 0.25,
+        color: "#06D6A0",
+        opacity: 0.28,
         coords: [
           [40.6360, -73.9785], [40.6375, -73.9738], [40.6335, -73.9710],
           [40.6285, -73.9700], [40.6270, -73.9750], [40.6280, -73.9820],
@@ -77,8 +77,8 @@
       },
       {
         name: "Other Asian / mixed-Asian east corridor",
-        color: "#FF4D4D",
-        opacity: 0.22,
+        color: "#9D4EDD",
+        opacity: 0.28,
         coords: [
           [40.6450, -73.9725], [40.6473, -73.9745], [40.6420, -73.9640],
           [40.6370, -73.9650], [40.6360, -73.9710], [40.6405, -73.9705],
@@ -87,8 +87,8 @@
       },
       {
         name: "Windsor Terrace — mixed families",
-        color: "#87CEEB",
-        opacity: 0.22,
+        color: "#118AB2",
+        opacity: 0.26,
         coords: [
           [40.6590, -73.9900], [40.6605, -73.9700], [40.6495, -73.9680],
           [40.6480, -73.9725], [40.6458, -73.9840], [40.6500, -73.9880],
@@ -97,8 +97,8 @@
       },
       {
         name: "Ditmas Park — diverse families",
-        color: "#90EE90",
-        opacity: 0.20,
+        color: "#F4A261",
+        opacity: 0.26,
         coords: [
           [40.6445, -73.9725], [40.6450, -73.9725], [40.6420, -73.9640],
           [40.6300, -73.9650], [40.6285, -73.9700], [40.6335, -73.9710],
@@ -112,8 +112,8 @@
         color: z.color,
         fillColor: z.color,
         fillOpacity: z.opacity,
-        weight: 2,
-        dashArray: "4, 6"
+        weight: 2.5,
+        dashArray: "5, 5"
       }).bindPopup(`<b>${z.name}</b>`).addTo(map);
     });
 
@@ -229,11 +229,11 @@
       const div = L.DomUtil.create('div', 'legend');
       let html = `
         <div class="legend-title">Community Zones</div>
-        <div class="legend-item"><div class="color-box" style="background:#FFD700"></div>Bengali / South Asian hub</div>
-        <div class="legend-item"><div class="color-box" style="background:#FFA500"></div>Uzbek / South Asian corridor</div>
-        <div class="legend-item"><div class="color-box" style="background:#FF4D4D"></div>Other Asian / mixed-Asian</div>
-        <div class="legend-item"><div class="color-box" style="background:#87CEEB"></div>Windsor Terrace — mixed</div>
-        <div class="legend-item"><div class="color-box" style="background:#90EE90"></div>Ditmas Park — diverse</div>
+        <div class="legend-item"><div class="color-box" style="background:#E63946"></div>Bengali / South Asian hub</div>
+        <div class="legend-item"><div class="color-box" style="background:#06D6A0"></div>Uzbek / South Asian corridor</div>
+        <div class="legend-item"><div class="color-box" style="background:#9D4EDD"></div>Other Asian / mixed-Asian</div>
+        <div class="legend-item"><div class="color-box" style="background:#118AB2"></div>Windsor Terrace — mixed</div>
+        <div class="legend-item"><div class="color-box" style="background:#F4A261"></div>Ditmas Park — diverse</div>
         <div class="legend-item"><div class="color-box" style="background:#1B3A5C"></div>11218 boundary</div>
         <hr style="margin:8px 0; border-color:rgba(0,0,0,0.1)">
         <div class="legend-title">Flyer Spots</div>
