@@ -14,29 +14,48 @@
     }
     #header h1 { font-size: 1.2rem; font-weight: 900; }
     #header .sub { font-size: 0.82rem; color: #D4A017; font-weight: 700; margin-top: 2px; }
-    #layout { display: flex; height: calc(100vh - 90px); }
+    #layout { display: flex; height: calc(100vh - 90px); position: relative; }
     #map { flex: 1; height: 100%; }
     #sidePanel {
       width: 280px; background: #fff; border-left: 4px solid #1B3A5C;
-      box-shadow: -2px 0 12px rgba(0,0,0,0.18); padding: 16px;
-      overflow-y: auto; z-index: 1000;
+      box-shadow: -2px 0 12px rgba(0,0,0,0.18); padding: 14px;
+      overflow-y: auto; z-index: 1000; transition: margin-right 0.25s ease;
     }
+    #sidePanel.closed { margin-right: -280px; }
     #sidePanel h2 {
-      font-size: 1.05rem; color: #1B3A5C; margin-bottom: 12px;
+      font-size: 1rem; color: #1B3A5C; margin-bottom: 10px;
       border-bottom: 2px solid #D4A017; padding-bottom: 6px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .panel-section { margin-bottom: 22px; }
+    .close-btn {
+      background: #1B3A5C; color: #fff; border: none; border-radius: 4px;
+      width: 26px; height: 26px; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .close-btn:hover { background: #D4A017; }
+    #openPanel {
+      position: absolute; top: 12px; right: 12px; z-index: 1001;
+      background: #1B3A5C; color: #fff; border: none; border-radius: 6px;
+      padding: 8px 12px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25); display: none;
+    }
+    #openPanel:hover { background: #D4A017; }
+    #openPanel.visible { display: block; }
+    .panel-section { margin-bottom: 18px; }
     .panel-title {
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.6px;
-      color: #888; font-weight: 900; margin-bottom: 8px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.6px;
+      color: #888; font-weight: 900; margin-bottom: 6px;
     }
-    .legend-item { display: flex; align-items: center; gap: 10px; margin: 7px 0; font-size: 0.85rem; }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-size: 0.82rem; }
+    .emoji { font-size: 1.1rem; width: 22px; text-align: center; }
     .color-box {
       width: 18px; height: 18px; border-radius: 3px;
       border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0;
     }
-    .circle { border-radius: 50%; }
     .dash { border: 2px dashed #1B3A5C; background: transparent; }
+    .emoji-marker { background: transparent !important; border: none !important; }
+    .emoji-marker div { font-size: 22px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.45)); text-align: center; }
+    .home-marker div { font-size: 28px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5)); }
     .popup-title { font-weight: 900; font-size: 1rem; color: #1B3A5C; margin-bottom: 4px; }
     .popup-type {
       font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
@@ -47,6 +66,7 @@
     .leaflet-popup-content-wrapper { border-radius: 10px; }
     @media (max-width: 760px) {
       #sidePanel { display: none; }
+      #openPanel { display: none !important; }
     }
   </style>
 </head>
@@ -60,8 +80,13 @@
 
   <div id="layout">
     <div id="map"></div>
+    <button id="openPanel" onclick="togglePanel(true)">🗺️ Map Legend</button>
+
     <div id="sidePanel">
-      <h2>Map Legend</h2>
+      <h2>
+        Map Legend
+        <button class="close-btn" onclick="togglePanel(false)" title="Close legend">✕</button>
+      </h2>
 
       <div class="panel-section">
         <div class="panel-title">Community Zones</div>
@@ -75,20 +100,20 @@
 
       <div class="panel-section">
         <div class="panel-title">Flyer Spots</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#D4A017"></div>Public School</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#228B22"></div>Mosque / Islamic Center</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#4169E1"></div>Church / Religious Center</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#8A2BE2"></div>Park / Playground</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#C8341B"></div>High-Traffic Commercial</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#0F7B5C"></div>Grocery Store</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#20B2AA"></div>Pharmacy</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#FF6347"></div>Laundromat</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#DC143C"></div>Halal / Bengali Restaurant</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#1B3A5C"></div>Transit Station</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#4682B4"></div>Bus Stop</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#FF4500"></div>Main Junction / Intersection</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#9370DB"></div>Community Hub / Library / PO</div>
-        <div class="legend-item"><div class="color-box circle" style="background:#C8341B;border:3px solid #1B3A5C"></div>Badal Tutorial (home base)</div>
+        <div class="legend-item"><span class="emoji">🏫</span>Public School</div>
+        <div class="legend-item"><span class="emoji">🕌</span>Mosque / Islamic Center</div>
+        <div class="legend-item"><span class="emoji">⛪</span>Church / Religious Center</div>
+        <div class="legend-item"><span class="emoji">🛝</span>Park / Playground</div>
+        <div class="legend-item"><span class="emoji">🍔</span>High-Traffic Commercial</div>
+        <div class="legend-item"><span class="emoji">🛒</span>Grocery Store</div>
+        <div class="legend-item"><span class="emoji">💊</span>Pharmacy</div>
+        <div class="legend-item"><span class="emoji">🧺</span>Laundromat</div>
+        <div class="legend-item"><span class="emoji">🍽️</span>Halal / Bengali Restaurant</div>
+        <div class="legend-item"><span class="emoji">🚇</span>Transit Station</div>
+        <div class="legend-item"><span class="emoji">🚌</span>Bus Stop</div>
+        <div class="legend-item"><span class="emoji">🚦</span>Main Junction / Intersection</div>
+        <div class="legend-item"><span class="emoji">📚</span>Community Hub / Library / PO</div>
+        <div class="legend-item"><span class="emoji">⭐</span>Badal Tutorial (home base)</div>
       </div>
 
       <div class="panel-section">
@@ -100,6 +125,19 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    const sidePanel = document.getElementById('sidePanel');
+    const openPanel = document.getElementById('openPanel');
+
+    function togglePanel(show) {
+      if (show) {
+        sidePanel.classList.remove('closed');
+        openPanel.classList.remove('visible');
+      } else {
+        sidePanel.classList.add('closed');
+        openPanel.classList.add('visible');
+      }
+    }
+
     const map = L.map('map').setView([40.6425, -73.9768], 15);
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -108,7 +146,6 @@
       maxZoom: 20
     }).addTo(map);
 
-    // Approximate ZIP 11218 boundary (dashed)
     const zip11218 = [
       [40.6605, -73.9910], [40.6620, -73.9680], [40.6480, -73.9560],
       [40.6260, -73.9570], [40.6230, -73.9750], [40.6260, -73.9930],
@@ -116,7 +153,6 @@
     ];
 
     // Dark grey overlay for everything OUTSIDE 11218
-    // Outer ring = whole world (counter-clockwise), hole = ZIP 11218 (clockwise)
     const outside11218 = L.polygon([
       [[-85, -180], [85, -180], [85, 180], [-85, 180], [-85, -180]],
       [[40.6605, -73.9910], [40.6500, -73.9950], [40.6380, -73.9980],
@@ -195,24 +231,34 @@
       }).bindPopup(`<b>${z.name}</b>`).addTo(map);
     });
 
-    // Marker colors
-    const typeColors = {
-      "Public School": "#D4A017",
-      "Mosque / Islamic Center": "#228B22",
-      "Church / Religious Center": "#4169E1",
-      "Park / Playground": "#8A2BE2",
-      "High-Traffic Commercial": "#C8341B",
-      "Grocery Store": "#0F7B5C",
-      "Pharmacy": "#20B2AA",
-      "Laundromat": "#FF6347",
-      "Halal Restaurant": "#DC143C",
-      "Halal / Bengali Restaurant": "#DC143C",
-      "Transit Station": "#1B3A5C",
-      "Bus Stop": "#4682B4",
-      "Main Junction / Intersection": "#FF4500",
-      "Community Hub / Library": "#9370DB",
-      "Community Hub / Post Office": "#9370DB"
+    // Emojis for each category
+    const typeEmojis = {
+      "Public School": "🏫",
+      "Mosque / Islamic Center": "🕌",
+      "Church / Religious Center": "⛪",
+      "Park / Playground": "🛝",
+      "High-Traffic Commercial": "🍔",
+      "Grocery Store": "🛒",
+      "Pharmacy": "💊",
+      "Laundromat": "🧺",
+      "Halal Restaurant": "🍽️",
+      "Halal / Bengali Restaurant": "🍽️",
+      "Transit Station": "🚇",
+      "Bus Stop": "🚌",
+      "Main Junction / Intersection": "🚦",
+      "Community Hub / Library": "📚",
+      "Community Hub / Post Office": "📚"
     };
+
+    function emojiIcon(emoji, isHome) {
+      return L.divIcon({
+        html: `<div>${emoji}</div>`,
+        className: isHome ? 'emoji-marker home-marker' : 'emoji-marker',
+        iconSize: isHome ? [34, 34] : [28, 28],
+        iconAnchor: isHome ? [17, 17] : [14, 14],
+        popupAnchor: [0, -14]
+      });
+    }
 
     const locations = [
       { name: "P.S. 179 Kensington", category: "Public School", address: "202 Avenue C, Brooklyn, NY 11218", why: "Zoned elementary school with ~670 K-5 students; high parent pickup/dropoff foot traffic.", coords: [40.6402167, -73.9773428] },
@@ -251,10 +297,8 @@
       { name: "Kensington Post Office", category: "Community Hub / Post Office", address: "419 McDonald Avenue, Brooklyn, NY 11218", why: "Neighborhood post office on McDonald Avenue; daily visitor traffic and prominent public notice board.", coords: [40.6431517, -73.9794] }
     ];
 
-    L.circleMarker([40.6425, -73.9768], {
-      radius: 12, fillColor: "#C8341B", color: "#1B3A5C", weight: 3,
-      opacity: 1, fillOpacity: 1
-    }).addTo(map).bindPopup(`
+    // Home base
+    L.marker([40.6425, -73.9768], { icon: emojiIcon('⭐', true) }).addTo(map).bindPopup(`
       <div class="popup-title">Badal Tutorial</div>
       <div class="popup-type">Home Base</div>
       <div class="popup-address">128 Cortelyou Rd, Brooklyn, NY 11218</div>
@@ -271,22 +315,14 @@
       }
       usedCoords.add((lat + jitter).toFixed(5) + "," + (lng + jitter).toFixed(5));
 
-      const color = typeColors[loc.category] || "#666";
-      const marker = L.circleMarker([lat + jitter, lng + jitter], {
-        radius: 9,
-        fillColor: color,
-        color: "#fff",
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.92
-      }).addTo(map);
-
-      marker.bindPopup(`
-        <div class="popup-title">${loc.name}</div>
-        <div class="popup-type">${loc.category}</div>
-        <div class="popup-address">${loc.address}</div>
-        <div class="popup-note">${loc.why}</div>
-      `);
+      const emoji = typeEmojis[loc.category] || "📍";
+      L.marker([lat + jitter, lng + jitter], { icon: emojiIcon(emoji, false) }).addTo(map)
+        .bindPopup(`
+          <div class="popup-title">${loc.name}</div>
+          <div class="popup-type">${loc.category}</div>
+          <div class="popup-address">${loc.address}</div>
+          <div class="popup-note">${loc.why}</div>
+        `);
     });
   </script>
 </body>
