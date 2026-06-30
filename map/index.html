@@ -14,16 +14,29 @@
     }
     #header h1 { font-size: 1.2rem; font-weight: 900; }
     #header .sub { font-size: 0.82rem; color: #D4A017; font-weight: 700; margin-top: 2px; }
-    #map { height: calc(100vh - 90px); width: 100%; }
-    .legend {
-      background: rgba(255,255,255,0.95); padding: 10px 12px; border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.5; font-size: 0.82rem;
-      max-width: 240px; max-height: 70vh; overflow-y: auto;
+    #layout { display: flex; height: calc(100vh - 90px); }
+    #map { flex: 1; height: 100%; }
+    #sidePanel {
+      width: 280px; background: #fff; border-left: 4px solid #1B3A5C;
+      box-shadow: -2px 0 12px rgba(0,0,0,0.18); padding: 16px;
+      overflow-y: auto; z-index: 1000;
     }
-    .legend-title { font-weight: 900; margin-bottom: 6px; color: #1B3A5C; }
-    .legend-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-    .color-box { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
+    #sidePanel h2 {
+      font-size: 1.05rem; color: #1B3A5C; margin-bottom: 12px;
+      border-bottom: 2px solid #D4A017; padding-bottom: 6px;
+    }
+    .panel-section { margin-bottom: 22px; }
+    .panel-title {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.6px;
+      color: #888; font-weight: 900; margin-bottom: 8px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin: 7px 0; font-size: 0.85rem; }
+    .color-box {
+      width: 18px; height: 18px; border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0;
+    }
     .circle { border-radius: 50%; }
+    .dash { border: 2px dashed #1B3A5C; background: transparent; }
     .popup-title { font-weight: 900; font-size: 1rem; color: #1B3A5C; margin-bottom: 4px; }
     .popup-type {
       font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
@@ -32,6 +45,9 @@
     .popup-address { font-size: 0.82rem; color: #555; margin-bottom: 6px; }
     .popup-note { font-size: 0.85rem; color: #333; line-height: 1.4; }
     .leaflet-popup-content-wrapper { border-radius: 10px; }
+    @media (max-width: 760px) {
+      #sidePanel { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -41,7 +57,46 @@
       <div class="sub">128 Cortelyou Rd, Brooklyn, NY 11218</div>
     </div>
   </div>
-  <div id="map"></div>
+
+  <div id="layout">
+    <div id="map"></div>
+    <div id="sidePanel">
+      <h2>Map Legend</h2>
+
+      <div class="panel-section">
+        <div class="panel-title">Community Zones</div>
+        <div class="legend-item"><div class="color-box" style="background:#E63946"></div>Bengali / South Asian hub</div>
+        <div class="legend-item"><div class="color-box" style="background:#06D6A0"></div>Uzbek / South Asian corridor</div>
+        <div class="legend-item"><div class="color-box" style="background:#9D4EDD"></div>Other Asian / mixed-Asian</div>
+        <div class="legend-item"><div class="color-box" style="background:#118AB2"></div>Windsor Terrace — mixed</div>
+        <div class="legend-item"><div class="color-box" style="background:#F4A261"></div>Ditmas Park — diverse</div>
+        <div class="legend-item"><div class="color-box dash"></div>ZIP 11218 boundary</div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-title">Flyer Spots</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#D4A017"></div>Public School</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#228B22"></div>Mosque / Islamic Center</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#4169E1"></div>Church / Religious Center</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#8A2BE2"></div>Park / Playground</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#C8341B"></div>High-Traffic Commercial</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#0F7B5C"></div>Grocery Store</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#20B2AA"></div>Pharmacy</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#FF6347"></div>Laundromat</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#DC143C"></div>Halal / Bengali Restaurant</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#1B3A5C"></div>Transit Station</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#4682B4"></div>Bus Stop</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#FF4500"></div>Main Junction / Intersection</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#9370DB"></div>Community Hub / Library / PO</div>
+        <div class="legend-item"><div class="color-box circle" style="background:#C8341B;border:3px solid #1B3A5C"></div>Badal Tutorial (home base)</div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-title">Grey Area</div>
+        <div class="legend-item"><div class="color-box" style="background:#333"></div>Outside ZIP 11218</div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -53,7 +108,25 @@
       maxZoom: 20
     }).addTo(map);
 
-    // Community zone overlays — approximate 11218 neighborhoods
+    // Approximate ZIP 11218 boundary (dashed)
+    const zip11218 = [
+      [40.6605, -73.9910], [40.6620, -73.9680], [40.6480, -73.9560],
+      [40.6260, -73.9570], [40.6230, -73.9750], [40.6260, -73.9930],
+      [40.6380, -73.9980], [40.6500, -73.9950], [40.6605, -73.9910]
+    ];
+
+    // Dark grey overlay for everything OUTSIDE 11218
+    const worldBounds = [[-90, -180], [90, 180]];
+    const outside11218 = L.polygon([worldBounds, zip11218], {
+      color: "#333", fillColor: "#222", fillOpacity: 0.55,
+      weight: 0, stroke: false
+    }).bindPopup("Outside ZIP 11218").addTo(map);
+
+    L.polygon(zip11218, {
+      color: "#1B3A5C", fillColor: "transparent", weight: 3, dashArray: "8, 6"
+    }).bindPopup("ZIP 11218 boundary (approximate)").addTo(map);
+
+    // Community zone overlays
     const zones = [
       {
         name: "Little Bangladesh / Bengali-South Asian hub",
@@ -117,17 +190,7 @@
       }).bindPopup(`<b>${z.name}</b>`).addTo(map);
     });
 
-    // Approximate ZIP 11218 boundary
-    const zip11218 = [
-      [40.6605, -73.9910], [40.6620, -73.9680], [40.6480, -73.9560],
-      [40.6260, -73.9570], [40.6230, -73.9750], [40.6260, -73.9930],
-      [40.6380, -73.9980], [40.6500, -73.9950], [40.6605, -73.9910]
-    ];
-    L.polygon(zip11218, {
-      color: "#1B3A5C", fillColor: "transparent", weight: 3, dashArray: "8, 6"
-    }).bindPopup("ZIP 11218 boundary (approximate)").addTo(map);
-
-    // Category colors used for both markers and legend
+    // Marker colors
     const typeColors = {
       "Public School": "#D4A017",
       "Mosque / Islamic Center": "#228B22",
@@ -183,7 +246,6 @@
       { name: "Kensington Post Office", category: "Community Hub / Post Office", address: "419 McDonald Avenue, Brooklyn, NY 11218", why: "Neighborhood post office on McDonald Avenue; daily visitor traffic and prominent public notice board.", coords: [40.6431517, -73.9794] }
     ];
 
-    // Home base marker
     L.circleMarker([40.6425, -73.9768], {
       radius: 12, fillColor: "#C8341B", color: "#1B3A5C", weight: 3,
       opacity: 1, fillOpacity: 1
@@ -197,7 +259,6 @@
     const usedCoords = new Set();
     locations.forEach(loc => {
       let [lat, lng] = loc.coords;
-      // tiny jitter so overlapping markers (intersection + bus stop at same corner) remain clickable
       const key = lat.toFixed(5) + "," + lng.toFixed(5);
       let jitter = 0;
       while (usedCoords.has((lat + jitter).toFixed(5) + "," + (lng + jitter).toFixed(5))) {
@@ -222,35 +283,6 @@
         <div class="popup-note">${loc.why}</div>
       `);
     });
-
-    // Legend
-    const legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function() {
-      const div = L.DomUtil.create('div', 'legend');
-      let html = `
-        <div class="legend-title">Community Zones</div>
-        <div class="legend-item"><div class="color-box" style="background:#E63946"></div>Bengali / South Asian hub</div>
-        <div class="legend-item"><div class="color-box" style="background:#06D6A0"></div>Uzbek / South Asian corridor</div>
-        <div class="legend-item"><div class="color-box" style="background:#9D4EDD"></div>Other Asian / mixed-Asian</div>
-        <div class="legend-item"><div class="color-box" style="background:#118AB2"></div>Windsor Terrace — mixed</div>
-        <div class="legend-item"><div class="color-box" style="background:#F4A261"></div>Ditmas Park — diverse</div>
-        <div class="legend-item"><div class="color-box" style="background:#1B3A5C"></div>11218 boundary</div>
-        <hr style="margin:8px 0; border-color:rgba(0,0,0,0.1)">
-        <div class="legend-title">Flyer Spots</div>
-      `;
-      Object.entries(typeColors).forEach(([type, color]) => {
-        // avoid duplicate legend entries for the two halal categories
-        if (type === "Halal / Bengali Restaurant") return;
-        html += `<div class="legend-item"><div class="color-box circle" style="background:${color}"></div>${type}</div>`;
-      });
-      html += `
-        <hr style="margin:8px 0; border-color:rgba(0,0,0,0.1)">
-        <div class="legend-item"><div class="color-box circle" style="background:#C8341B;border:3px solid #1B3A5C"></div>Badal Tutorial (home base)</div>
-      `;
-      div.innerHTML = html;
-      return div;
-    };
-    legend.addTo(map);
   </script>
 </body>
 </html>
