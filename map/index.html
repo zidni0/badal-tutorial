@@ -116,9 +116,14 @@
     ];
 
     // Dark grey overlay for everything OUTSIDE 11218
-    const worldBounds = [[-90, -180], [90, 180]];
-    const outside11218 = L.polygon([worldBounds, zip11218], {
-      color: "#333", fillColor: "#222", fillOpacity: 0.55,
+    // Outer ring = whole world (counter-clockwise), hole = ZIP 11218 (clockwise)
+    const outside11218 = L.polygon([
+      [[-85, -180], [85, -180], [85, 180], [-85, 180], [-85, -180]],
+      [[40.6605, -73.9910], [40.6500, -73.9950], [40.6380, -73.9980],
+       [40.6260, -73.9930], [40.6230, -73.9750], [40.6260, -73.9570],
+       [40.6480, -73.9560], [40.6620, -73.9680], [40.6605, -73.9910]]
+    ], {
+      color: "transparent", fillColor: "#222", fillOpacity: 0.55,
       weight: 0, stroke: false
     }).bindPopup("Outside ZIP 11218").addTo(map);
 
