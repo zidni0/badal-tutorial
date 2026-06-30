@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badal Tutorial — 11218 Flyer Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans', 'Segoe UI', sans-serif; background: #f5f5f5; }
+    #header {
+      background: #1B3A5C; color: #FAF7F0; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    }
+    #header h1 { font-size: 1.2rem; font-weight: 900; }
+    #header .sub { font-size: 0.82rem; color: #D4A017; font-weight: 700; margin-top: 2px; }
+    #map { height: calc(100vh - 90px); width: 100%; }
+    .legend {
+      background: rgba(255,255,255,0.95); padding: 10px 12px; border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.5; font-size: 0.82rem;
+      max-width: 240px; max-height: 70vh; overflow-y: auto;
+    }
+    .legend-title { font-weight: 900; margin-bottom: 6px; color: #1B3A5C; }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+    .color-box { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
+    .circle { border-radius: 50%; }
+    .popup-title { font-weight: 900; font-size: 1rem; color: #1B3A5C; margin-bottom: 4px; }
+    .popup-type {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #D4A017; font-weight: 700; margin-bottom: 6px;
+    }
+    .popup-address { font-size: 0.82rem; color: #555; margin-bottom: 6px; }
+    .popup-note { font-size: 0.85rem; color: #333; line-height: 1.4; }
+    .leaflet-popup-content-wrapper { border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <div>
+      <h1>Badal Tutorial — 11218 Flyer Drop Map</h1>
+      <div class="sub">128 Cortelyou Rd, Brooklyn, NY 11218</div>
+    </div>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([40.6425, -73.9768], 15);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(map);
+
+    // Community zone overlays — approximate 11218 neighborhoods
+    const zones = [
+      {
+        name: "Little Bangladesh / Bengali-South Asian hub",
+        color: "#FFD700",
+        opacity: 0.28,
+        coords: [
+          [40.6458, -73.9840], [40.6473, -73.9745], [40.6445, -73.9725],
+          [40.6375, -73.9738], [40.6360, -73.9785], [40.6362, -73.9840],
+          [40.6390, -73.9855], [40.6458, -73.9840]
+        ]
+      },
+      {
+        name: "Uzbek / South Asian family corridor",
+        color: "#FFA500",
+        opacity: 0.25,
+        coords: [
+          [40.6360, -73.9785], [40.6375, -73.9738], [40.6335, -73.9710],
+          [40.6285, -73.9700], [40.6270, -73.9750], [40.6280, -73.9820],
+          [40.6320, -73.9840], [40.6360, -73.9785]
+        ]
+      },
+      {
+        name: "Other Asian / mixed-Asian east corridor",
+        color: "#FF4D4D",
+        opacity: 0.22,
+        coords: [
+          [40.6450, -73.9725], [40.6473, -73.9745], [40.6420, -73.9640],
+          [40.6370, -73.9650], [40.6360, -73.9710], [40.6405, -73.9705],
+          [40.6450, -73.9725]
+        ]
+      },
+      {
+        name: "Windsor Terrace — mixed families",
+        color: "#87CEEB",
+        opacity: 0.22,
+        coords: [
+          [40.6590, -73.9900], [40.6605, -73.9700], [40.6495, -73.9680],
+          [40.6480, -73.9725], [40.6458, -73.9840], [40.6500, -73.9880],
+          [40.6590, -73.9900]
+        ]
+      },
+      {
+        name: "Ditmas Park — diverse families",
+        color: "#90EE90",
+        opacity: 0.20,
+        coords: [
+          [40.6445, -73.9725], [40.6450, -73.9725], [40.6420, -73.9640],
+          [40.6300, -73.9650], [40.6285, -73.9700], [40.6335, -73.9710],
+          [40.6370, -73.9650], [40.6445, -73.9725]
+        ]
+      }
+    ];
+
+    zones.forEach(z => {
+      L.polygon(z.coords, {
+        color: z.color,
+        fillColor: z.color,
+        fillOpacity: z.opacity,
+        weight: 2,
+        dashArray: "4, 6"
+      }).bindPopup(`<b>${z.name}</b>`).addTo(map);
+    });
+
+    // Approximate ZIP 11218 boundary
+    const zip11218 = [
+      [40.6605, -73.9910], [40.6620, -73.9680], [40.6480, -73.9560],
+      [40.6260, -73.9570], [40.6230, -73.9750], [40.6260, -73.9930],
+      [40.6380, -73.9980], [40.6500, -73.9950], [40.6605, -73.9910]
+    ];
+    L.polygon(zip11218, {
+      color: "#1B3A5C", fillColor: "transparent", weight: 3, dashArray: "8, 6"
+    }).bindPopup("ZIP 11218 boundary (approximate)").addTo(map);
+
+    // Category colors used for both markers and legend
+    const typeColors = {
+      "Public School": "#D4A017",
+      "Mosque / Islamic Center": "#228B22",
+      "Church / Religious Center": "#4169E1",
+      "Park / Playground": "#8A2BE2",
+      "High-Traffic Commercial": "#C8341B",
+      "Grocery Store": "#0F7B5C",
+      "Pharmacy": "#20B2AA",
+      "Laundromat": "#FF6347",
+      "Halal Restaurant": "#DC143C",
+      "Halal / Bengali Restaurant": "#DC143C",
+      "Transit Station": "#1B3A5C",
+      "Bus Stop": "#4682B4",
+      "Main Junction / Intersection": "#FF4500",
+      "Community Hub / Library": "#9370DB",
+      "Community Hub / Post Office": "#9370DB"
+    };
+
+    const locations = [
+      { name: "P.S. 179 Kensington", category: "Public School", address: "202 Avenue C, Brooklyn, NY 11218", why: "Zoned elementary school with ~670 K-5 students; high parent pickup/dropoff foot traffic.", coords: [40.6402167, -73.9773428] },
+      { name: "J.H.S. 62 Ditmas (Ditmas Junior High School)", category: "Public School", address: "700 Cortelyou Road, Brooklyn, NY 11218", why: "Neighborhood middle school serving grades 6-8 on busy Cortelyou Road; school dismissal draws crowds.", coords: [40.6381641, -73.9713248] },
+      { name: "P.S. 230 Doris L. Cohen (Lower School, Pre-K-K)", category: "Public School", address: "425 McDonald Avenue, Brooklyn, NY 11218", why: "Pre-K/K site with parents arriving twice daily; directly on McDonald Avenue transit corridor.", coords: [40.6435369, -73.9791351] },
+      { name: "P.S. 230 Doris L. Cohen (Upper School, 1st-5th)", category: "Public School", address: "1 Albemarle Road, Brooklyn, NY 11218", why: "Large diverse elementary school (~925 students) with playground and daily parent traffic.", coords: [40.64546, -73.9804908] },
+      { name: "Bangladesh Muslim Center Jame Masjid", category: "Mosque / Islamic Center", address: "105 Cortelyou Road, Brooklyn, NY 11218", why: "Religious and cultural anchor for Little Bangladesh; weekend children's classes bring families.", coords: [40.6380991, -73.978187] },
+      { name: "Masjid Nur Al-Islam", category: "Mosque / Islamic Center", address: "21 Church Avenue, Brooklyn, NY 11218", why: "Historic Kensington mosque since 1995; open-street Friday prayers and Eid gatherings create large crowds.", coords: [40.6417695, -73.9824175] },
+      { name: "Jamiah Darus Sunnah Masjid & Islamic School", category: "Mosque / Islamic Center", address: "913 Cortelyou Road, Brooklyn, NY 11218", why: "Islamic school and masjid on Cortelyou Road; attracts students and families for classes and prayers.", coords: [40.6391593, -73.9693549] },
+      { name: "Brooklyn Islamic Center (BICNY)", category: "Mosque / Islamic Center", address: "722 Church Avenue, Brooklyn, NY 11218", why: "Bangladeshi community hub hosting daily prayers, Friday Jumu'ah, food bank, and youth services.", coords: [40.6454982, -73.9724694] },
+      { name: "All Souls Bethlehem Church", category: "Church / Religious Center", address: "566 East 7th Street, Brooklyn, NY 11218", why: "Progressive house church with Sunday services, Bible study, and community events in central Kensington.", coords: [40.6378063, -73.9718796] },
+      { name: "Immaculate Heart of Mary (Roman Catholic)", category: "Church / Religious Center", address: "2805 Fort Hamilton Parkway, Brooklyn, NY 11218", why: "Long-standing Catholic parish on Fort Hamilton Parkway; Sunday Mass and religious education bring parents.", coords: [40.6493306, -73.9769417] },
+      { name: "Holy Innocents Roman Catholic Church", category: "Church / Religious Center", address: "279 East 17th Street, Brooklyn, NY 11226", why: "Historic parish near Beverley Road Q station; weekend Spanish/English Masses draw neighborhood families.", coords: [40.6442667, -73.9625551] },
+      { name: "Dome Playground", category: "Park / Playground", address: "Dahill Road between 37th and 38th Streets, Brooklyn, NY 11218", why: "Renovated neighborhood park with sprinklers and sports courts; very close to central Kensington.", coords: [40.6379483, -73.9799348] },
+      { name: "Lt. Federico Narvaez Tot Lot", category: "Park / Playground", address: "Cortelyou Road and Argyle Road, Brooklyn, NY 11218", why: "Small neighborhood tot lot at a major Cortelyou Road intersection; parents with young children daily.", coords: [40.6392753, -73.9685353] },
+      { name: "Albemarle Playground at P.S. 230", category: "Park / Playground", address: "1 Albemarle Road, Brooklyn, NY 11218", why: "Jointly operated school/playground with basketball courts and play equipment; busy after school and weekends.", coords: [40.64546, -73.9804908] },
+      { name: "Greenwood Playground", category: "Park / Playground", address: "Fort Hamilton Parkway, Prospect Avenue and Greenwood Avenue, Brooklyn, NY 11218", why: "Family-friendly playground in the Windsor Terrace/Kensington border area; weekend and after-school traffic.", coords: [40.6500693, -73.9763528] },
+      { name: "McDonald's", category: "High-Traffic Commercial", address: "880 Coney Island Avenue, Brooklyn, NY 11218", why: "Well-known fast-food landmark on Coney Island Avenue in Kensington; steady drive-thru and walk-in traffic.", coords: [40.635798, -73.9681526] },
+      { name: "Cortelyou Market by Key Food", category: "Grocery Store", address: "1610 Cortelyou Road, Brooklyn, NY 11226", why: "Family-run Key Food on Cortelyou's commercial strip; 38+ years serving neighborhood shoppers.", coords: [40.6415827, -73.9632213] },
+      { name: "CVS Pharmacy", category: "Pharmacy", address: "411 Ditmas Avenue, Brooklyn, NY 11218", why: "Convenient pharmacy on Ditmas Avenue near F train; household supplies and prescription pickups daily.", coords: [40.6359848, -73.9748271] },
+      { name: "Walgreens Pharmacy", category: "Pharmacy", address: "114 Beverley Road, Brooklyn, NY 11218", why: "Pharmacy one block from the Beverley Road Q station; commuters and residents stop regularly.", coords: [40.6425318, -73.9787846] },
+      { name: "423 Church Ave Laundromat", category: "Laundromat", address: "423 Church Avenue, Brooklyn, NY 11218", why: "24-hour laundromat on Church Avenue in the heart of Little Bangladesh; steady local foot traffic.", coords: [40.6444416, -73.9758732] },
+      { name: "Halal Xpress", category: "Halal Restaurant", address: "221 Church Avenue, Brooklyn, NY 11218", why: "Popular halal restaurant on Church Avenue; lunch and dinner draw local workers, students, and families.", coords: [40.6437288, -73.9776965] },
+      { name: "Halal Food Cart (McDonald & Church Avenues)", category: "Halal Restaurant", address: "McDonald Avenue and Church Avenue, Brooklyn, NY 11218", why: "Landmark halal cart at the center of Little Bangladesh; high evening and Friday crowd traffic.", coords: [40.6440317, -73.9799842] },
+      { name: "Radhuni Sweets & Restaurant", category: "Halal / Bengali Restaurant", address: "483 McDonald Avenue, Brooklyn, NY 11218", why: "Popular halal Bangladeshi sweets and restaurant on McDonald Avenue; draws families and event orders.", coords: [40.6423929, -73.9790782] },
+      { name: "MTA Ditmas Avenue Station (F)", category: "Transit Station", address: "McDonald Avenue and Ditmas Avenue / Cortelyou Road, Brooklyn, NY 11218", why: "F train station at McDonald Avenue with entrances near Cortelyou and Ditmas; commuter and bus transfer traffic.", coords: [40.6417326, -73.9795192] },
+      { name: "MTA Beverley Road Station (Q)", category: "Transit Station", address: "Beverley Road near East 16th Street, Brooklyn, NY 11226", why: "Local Q station serving Kensington and Ditmas Park; strong morning and evening commuter flow.", coords: [40.642885, -73.977146] },
+      { name: "MTA Church Avenue Station (B/Q)", category: "Transit Station", address: "Church Avenue between East 18th Street and Ocean Parkway, Brooklyn, NY 11226", why: "Major B/Q express/local stop and Little Bangladesh gateway; accessible station with heavy foot traffic.", coords: [40.6444067, -73.9753868] },
+      { name: "MTA Cortelyou Road Station (B/Q)", category: "Transit Station", address: "Cortelyou Road between Marlborough Road and East 16th Street, Brooklyn, NY 11226", why: "Busy Brighton Line station on the Q/B; commuters enter/exit all day along Cortelyou Road.", coords: [40.6409005, -73.9645882] },
+      { name: "Bus Stop - McDonald Avenue / Cortelyou Road", category: "Bus Stop", address: "McDonald Avenue and Cortelyou Road, Brooklyn, NY 11218", why: "Major transfer point for B16, B35, B67, B8, BM3; high visibility at the commercial crossroads.", coords: [40.6382348, -73.9791337] },
+      { name: "Bus Stop - McDonald Avenue / Church Avenue", category: "Bus Stop", address: "McDonald Avenue and Church Avenue, Brooklyn, NY 11218", why: "Key stop on the B35 Church Avenue line at the heart of Little Bangladesh; constant pedestrian flow.", coords: [40.6442429, -73.9800251] },
+      { name: "McDonald Avenue & Cortelyou Road Intersection", category: "Main Junction / Intersection", address: "McDonald Avenue and Cortelyou Road, Brooklyn, NY 11218", why: "Central Kensington crossroads with subway, bus transfer, shops, and school traffic; natural gathering point.", coords: [40.6382348, -73.9791337] },
+      { name: "McDonald Avenue & Church Avenue Intersection (Little Bangladesh)", category: "Main Junction / Intersection", address: "McDonald Avenue and Church Avenue, Brooklyn, NY 11218", why: "Co-named 'Little Bangladesh' corner; densest Bengali commercial strip with halal carts, groceries, and mosques.", coords: [40.6442429, -73.9800251] },
+      { name: "Cortelyou Road & Coney Island Avenue Intersection", category: "Main Junction / Intersection", address: "Cortelyou Road and Coney Island Avenue, Brooklyn, NY 11218", why: "Commercial corner with McDonald's, shops, and heavy car/pedestrian traffic from surrounding neighborhoods.", coords: [40.633601, -73.967045] },
+      { name: "Cortelyou Library (Brooklyn Public Library)", category: "Community Hub / Library", address: "1305 Cortelyou Road at Argyle Road, Brooklyn, NY 11226", why: "Public library at Cortelyou/Argyle; storytimes, classes, and daily visitors make it a family gathering hub.", coords: [40.6408392, -73.9659741] },
+      { name: "Kensington Post Office", category: "Community Hub / Post Office", address: "419 McDonald Avenue, Brooklyn, NY 11218", why: "Neighborhood post office on McDonald Avenue; daily visitor traffic and prominent public notice board.", coords: [40.6431517, -73.9794] }
+    ];
+
+    // Home base marker
+    L.circleMarker([40.6425, -73.9768], {
+      radius: 12, fillColor: "#C8341B", color: "#1B3A5C", weight: 3,
+      opacity: 1, fillOpacity: 1
+    }).addTo(map).bindPopup(`
+      <div class="popup-title">Badal Tutorial</div>
+      <div class="popup-type">Home Base</div>
+      <div class="popup-address">128 Cortelyou Rd, Brooklyn, NY 11218</div>
+      <div class="popup-note">Start every flyering route from here. K-12, EKG prep, test prep, homework help.</div>
+    `);
+
+    const usedCoords = new Set();
+    locations.forEach(loc => {
+      let [lat, lng] = loc.coords;
+      // tiny jitter so overlapping markers (intersection + bus stop at same corner) remain clickable
+      const key = lat.toFixed(5) + "," + lng.toFixed(5);
+      let jitter = 0;
+      while (usedCoords.has((lat + jitter).toFixed(5) + "," + (lng + jitter).toFixed(5))) {
+        jitter += 0.00012;
+      }
+      usedCoords.add((lat + jitter).toFixed(5) + "," + (lng + jitter).toFixed(5));
+
+      const color = typeColors[loc.category] || "#666";
+      const marker = L.circleMarker([lat + jitter, lng + jitter], {
+        radius: 9,
+        fillColor: color,
+        color: "#fff",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.92
+      }).addTo(map);
+
+      marker.bindPopup(`
+        <div class="popup-title">${loc.name}</div>
+        <div class="popup-type">${loc.category}</div>
+        <div class="popup-address">${loc.address}</div>
+        <div class="popup-note">${loc.why}</div>
+      `);
+    });
+
+    // Legend
+    const legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+      const div = L.DomUtil.create('div', 'legend');
+      let html = `
+        <div class="legend-title">Community Zones</div>
+        <div class="legend-item"><div class="color-box" style="background:#FFD700"></div>Bengali / South Asian hub</div>
+        <div class="legend-item"><div class="color-box" style="background:#FFA500"></div>Uzbek / South Asian corridor</div>
+        <div class="legend-item"><div class="color-box" style="background:#FF4D4D"></div>Other Asian / mixed-Asian</div>
+        <div class="legend-item"><div class="color-box" style="background:#87CEEB"></div>Windsor Terrace — mixed</div>
+        <div class="legend-item"><div class="color-box" style="background:#90EE90"></div>Ditmas Park — diverse</div>
+        <div class="legend-item"><div class="color-box" style="background:#1B3A5C"></div>11218 boundary</div>
+        <hr style="margin:8px 0; border-color:rgba(0,0,0,0.1)">
+        <div class="legend-title">Flyer Spots</div>
+      `;
+      Object.entries(typeColors).forEach(([type, color]) => {
+        // avoid duplicate legend entries for the two halal categories
+        if (type === "Halal / Bengali Restaurant") return;
+        html += `<div class="legend-item"><div class="color-box circle" style="background:${color}"></div>${type}</div>`;
+      });
+      html += `
+        <hr style="margin:8px 0; border-color:rgba(0,0,0,0.1)">
+        <div class="legend-item"><div class="color-box circle" style="background:#C8341B;border:3px solid #1B3A5C"></div>Badal Tutorial (home base)</div>
+      `;
+      div.innerHTML = html;
+      return div;
+    };
+    legend.addTo(map);
+  </script>
+</body>
+</html>
