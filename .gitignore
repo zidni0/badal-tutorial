@@ -1,0 +1,7 @@
+
+# TutorFlow reference store (cloned OSS, ~254MB, not committed)
+tutorflow-reference/repos/
+
+# Marketing website source (rebuilt locally; published build lives in
+# zidni0/badal-tutorial-website, not here)
+site/
